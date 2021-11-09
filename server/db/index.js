@@ -10,7 +10,13 @@ mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true})
 
 
 const cardSchema = new mongoose.Schema({
-
+  _id: Number,
+  cardNumber: Number,
+  englishName: String,
+  spanishName: String,
+  kangji: String,
+  clowCard: String,
+  sakuraCard: String
 });
 
 const Card = mongoose.model('Card', cardSchema);
