@@ -12,33 +12,59 @@ const cardSchema = new mongoose.Schema({
   _id: Number,
   cardNumber: Number,
   englishName: String,
-  spanishName: String,
-  kangji: String,
-  clowCard: String,
-  sakuraCard: String,
+  // spanishName: String,
+  // kangji: String,
+  // clowCard: String,
+  // sakuraCard: String,
 });
 
 const Card = mongoose.model('Card', cardSchema);
 
 const addCard = (cards) => {
-  
-  const newCard = {
-    cardNumber: cards.cardNumber,
-    englishName: cards.englishName,
-    spanishName: cards.spanishName,
-    kangji: cards.kangi,
-    clowCard: cards.clowCard,
-    sakuraCard: cards.sakuraCard
-  };
-  return Card.find(newCard)
-    .then((data) => {
-      if (data.length > 0) {
-        console.log('exits!!');
+  return new Promise ((resolve, reject) => {
+    const newCard = new Card({
+      cardNumber: cards.cardNumber,
+      englishName: cards.englishName,
+      // spanishName: cards.spanishName,
+      // kangji: cards.kangi,
+      // clowCard: cards.clowCard,
+      // sakuraCard: cards.sakuraCard
+    });
+
+    Card.findOne({cardNumber: cards.cardNumber}, (err, data) => {
+      if (err) {
+        reject(err);
       } else {
-        const result = new Card(newCard);
-        return result.save();
+        if (data === null) {
+          newCard.save((err, data) => {
+            // console.log('data', data);
+            if (err) {
+              reject(err);
+            } else {
+              // console.log('?????????', data);
+              return resolve(data);
+            }
+          });
+        } else {
+          return resolve();
+        }
       }
     });
+  });
+};
+
+const getCardById = () => {
+  //finds all the documents, need to change it to find only by cardNumber when my database contains some data
+  return Card.find({}).exec();
+};
+
+const updateCard = () => {
+  return Card.findByIdAndUpdate();
+};
+
+const deleteCard = () => {
+
 };
 
 module.exports.addCard = addCard;
+module.exports.getCardById = getCardById;
