@@ -10,7 +10,6 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static(CLIENT_PATH));
-app.use(express.json());
 
 app.use('/api/card', Cards);
 

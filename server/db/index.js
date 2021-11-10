@@ -9,7 +9,7 @@ mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true})
 
 
 const cardSchema = new mongoose.Schema({
-  _id: Number,
+  cardId: Number,
   cardNumber: Number,
   englishName: String,
   // spanishName: String,
@@ -20,18 +20,19 @@ const cardSchema = new mongoose.Schema({
 
 const Card = mongoose.model('Card', cardSchema);
 
-const addCard = (cards) => {
+const addCard = (card) => {
   return new Promise ((resolve, reject) => {
     const newCard = new Card({
-      cardNumber: cards.cardNumber,
-      englishName: cards.englishName,
+      cardId: card.cardId,
+      cardNumber: card.cardNumber,
+      englishName: card.englishName,
       // spanishName: cards.spanishName,
       // kangji: cards.kangi,
       // clowCard: cards.clowCard,
       // sakuraCard: cards.sakuraCard
     });
 
-    Card.findOne({cardNumber: cards.cardNumber}, (err, data) => {
+    Card.findOne({cardNumber: card.cardNumber}, (err, data) => {
       if (err) {
         reject(err);
       } else {
@@ -53,9 +54,8 @@ const addCard = (cards) => {
   });
 };
 
-const getCardById = () => {
-  //finds all the documents, need to change it to find only by cardNumber when my database contains some data
-  return Card.find({}).exec();
+const getDeckCard = () => {
+  return Card.find().exec();
 };
 
 const updateCard = () => {
@@ -67,4 +67,4 @@ const deleteCard = () => {
 };
 
 module.exports.addCard = addCard;
-module.exports.getCardById = getCardById;
+module.exports.getDeckCard = getDeckCard;
