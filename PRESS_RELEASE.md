@@ -19,28 +19,28 @@ Once the project moves into development, the press release can be used as a touc
 
 
 ## Heading
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > Clow Card Collection: User can browser through 55 cards and add them to their collection.
 
 ## Sub-Heading
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > Anyone who loves Clow Card like I do, can start collecting them from here and save it to their dbs.
 
 ## Summary
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > This is just a fun product to explore all the clow cards and relive childhood memories.
 
 ## Problem
-  > Describe the problem your product solves.
+  > Users who can't purchase an actual card.
 
 ## Solution
-  > Describe how your product elegantly solves the problem.
+  > Users can use this product to collect, modify and delete cards from their collection.
 
 ## Quote from You
-  > A quote from a spokesperson in your company.
+  > Finally!!
 
 ## How to Get Started
-  > Describe how easy it is to get started.
+  > Just browse the cards and add them to your collection if you fancy them.
 
 ## Customer Quote
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "I love it!!!"
 
 ## Closing and Call to Action
-  > Wrap it up and give pointers where the reader should go next.
+  > I hope you enjoyed this simple mvp app of mine.
