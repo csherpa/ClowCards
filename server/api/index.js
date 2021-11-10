@@ -4,11 +4,19 @@ const { Card, addCard, getDeckCard, deleteCard } = require('../db');
 const { getCardData } = require('../helpers/index');
 
 
+/// this get all the card data and render it in my client side
+Cards.get('/', (req, res) => {
+  getCardData()
+    .then(({ data }) => {
+      const result = data['data'];
+      res.send(result);
+    });
+});
+
+
 Cards.get('/deck', (req, res) => {
-  // console.log(req);
   getDeckCard()
     .then((data) => {
-      // console.log('data', data);
       res.set('Content-Type', 'application/json');
       res.status(200);
       res.send(JSON.stringify(data));
@@ -19,25 +27,9 @@ Cards.get('/deck', (req, res) => {
 });
 
 
-/// this get all the card data and render it in my client side
-Cards.get('/', (req, res) => {
-  console.log('searchbuttonclicked!!!');
-  getCardData()
-    .then(({ data }) => {
-      const result = data['data'];
-      // console.log(result.length);
-      res.send(result);
-    });
-});
-
-
-
-
 Cards.post('/', (req, res) => {
-  // console.log('addbuttonClicked', req);
   addCard(req.body)
     .then((data) => {
-      // console.log('data', data);
       res.status(201).send(data);
     }).catch((err) => {
       console.log('PostError', err);
@@ -52,14 +44,14 @@ Cards.put('/deck/:id', (req, res) => {
   const data = {
     meaning: req.body.meaning
   };
-  const option = { useFindAndModify: false };
+
   Card.updateOne({_id: id}, data)
     .then(() => {
       res.send('success');
     });
 });
 
-///delete the card using card id in the request
+///delete the card using card id
 Cards.delete('/deck/:id', (req, res) => {
   const id = req.params.id;
   Card.deleteOne({_id: id}, (err) => {

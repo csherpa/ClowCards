@@ -40,11 +40,9 @@ const addCard = (card) => {
       } else {
         if (data === null) {
           newCard.save((err, data) => {
-            // console.log('data', data);
             if (err) {
               reject(err);
             } else {
-              // console.log('?????????', data);
               return resolve(data);
             }
           });

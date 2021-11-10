@@ -5,6 +5,7 @@ import axios from 'axios';
 import SearchCard from './SearchCard.jsx';
 import Card from './Card.jsx';
 import CardList from './CardList.jsx';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,10 +20,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    //call my server
     axios.get('/api/card')
       .then(({data}) => {
-        console.log('ApiJsonData', data);
+        // console.log('ApiJsonData', data);
         this.setState({
           cards: data
         });
@@ -30,12 +30,11 @@ class App extends React.Component {
     this.getDeckCard();
   }
 
-  handleSearch(event) {
-    console.log(`${event} was searched`);
-    const eventNum = Number(event);
+  handleSearch(input) {
+    const inputNum = Number(input);
     const { cards, currentCard } = this.state;
     cards.filter((card) => {
-      if (card.cardNumber === eventNum) {
+      if (card.cardNumber === inputNum) {
         this.setState({
           currentCard: card
         });
@@ -44,7 +43,7 @@ class App extends React.Component {
   }
 
   addCard() {
-    console.log('click,click');
+    // console.log('click,click');
     axios({
       method: 'POST',
       url: '/api/card',
@@ -70,12 +69,15 @@ class App extends React.Component {
       });
   }
 
-  updateCard(id) {
+  /////need to work on this
+  updateCard(text) {
+    // console.log('updatebtn click');
+    const newText = prompt('Update the meaning!!');
     const { deckCards } = this.state;
-    const change = deckCards.find((elem) => {
-      return elem.meaning === id;
+    const updateResult = deckCards.find((elem) => {
+      return elem.meaning === text;
     });
-    axios.put(`/api/card/deck/${change._id}`)
+    axios.put(`/api/card/deck/${updateResult._id}`)
       .then((res) => {
         console.log('update', res);
       }).catch((err) => {
@@ -86,7 +88,7 @@ class App extends React.Component {
   deleteCard(cardNumber) {
     const { deckCards } = this.state;
     const deleteResult = deckCards.find((elem) => {
-      console.log('elm', elem);
+      console.log(elem.cardNumber, cardNumber);
       return elem.cardNumber === cardNumber;
     });
     axios.delete(`/api/card/deck/${deleteResult._id}`)
@@ -99,7 +101,6 @@ class App extends React.Component {
 
   render() {
     const { cards, currentCard, deckCards} = this.state;
-    // console.log('current', deckCards);
     return (
       <div>
         <h1>Clow Collection</h1>
