@@ -70,9 +70,17 @@ class App extends React.Component {
       });
   }
 
+  updateCard() {
+    console.log('updatebutton clicked');
+  }
+
+  deleteCard() {
+    console.log('deletebutton clicked');
+  }
+
   render() {
     const { cards, currentCard, deckCards} = this.state;
-    console.log('current', deckCards);
+    // console.log('current', deckCards);
     return (
       <div>
         <h1>MyCards</h1>
@@ -82,7 +90,11 @@ class App extends React.Component {
           <Card currentCard={ currentCard }/>
         </div>
         <div>
-          <CardList deckCards={deckCards} />
+          <CardList 
+            deckCards={deckCards}
+            deleteCard={this.deleteCard.bind(this)}
+            updateCard={this.updateCard.bind(this)}
+          />
         </div>
       </div>
     );

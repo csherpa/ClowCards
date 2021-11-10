@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Card = ( props) => {
+const Card = ({currentCard}) => {
   // console.log(props);
   return (
     <div>
-      <span>{props.currentCard.englishName}</span>
-      <p>{props.currentCard.cardNumber}</p>
+      <span>{currentCard.englishName}</span>
+      <p>{currentCard.cardNumber}</p>
     </div>
   );
 };

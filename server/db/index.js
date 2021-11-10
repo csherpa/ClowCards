@@ -12,10 +12,11 @@ const cardSchema = new mongoose.Schema({
   cardId: Number,
   cardNumber: Number,
   englishName: String,
-  // spanishName: String,
-  // kangji: String,
-  // clowCard: String,
-  // sakuraCard: String,
+  spanishName: String,
+  kangji: String,
+  clowCard: String,
+  sakuraCard: String,
+  meaning: String
 });
 
 const Card = mongoose.model('Card', cardSchema);
@@ -26,10 +27,11 @@ const addCard = (card) => {
       cardId: card.cardId,
       cardNumber: card.cardNumber,
       englishName: card.englishName,
-      // spanishName: cards.spanishName,
-      // kangji: cards.kangi,
-      // clowCard: cards.clowCard,
-      // sakuraCard: cards.sakuraCard
+      spanishName: card.spanishName,
+      kangji: card.kangi,
+      clowCard: card.clowCard,
+      sakuraCard: card.sakuraCard,
+      meaning: card.meaning
     });
 
     Card.findOne({cardNumber: card.cardNumber}, (err, data) => {
@@ -58,13 +60,6 @@ const getDeckCard = () => {
   return Card.find().exec();
 };
 
-const updateCard = () => {
-  return Card.findByIdAndUpdate();
-};
-
-const deleteCard = () => {
-
-};
-
 module.exports.addCard = addCard;
 module.exports.getDeckCard = getDeckCard;
+module.exports.Card = Card;

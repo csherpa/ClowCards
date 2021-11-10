@@ -1,14 +1,14 @@
 const { Router } = require('express');
 const Cards = Router();
-const { addCard, getDeckCard } = require('../db');
+const { Card, addCard, getDeckCard, deleteCard } = require('../db');
 const { getCardData } = require('../helpers/index');
 
 
 Cards.get('/deck', (req, res) => {
-  console.log(req);
+  // console.log(req);
   getDeckCard()
     .then((data) => {
-      console.log('data', data);
+      // console.log('data', data);
       res.set('Content-Type', 'application/json');
       res.status(200);
       res.send(JSON.stringify(data));
@@ -55,7 +55,7 @@ Cards.post('/', (req, res) => {
   console.log('addbuttonClicked', req);
   addCard(req.body)
     .then((data) => {
-      console.log('data', data);
+      // console.log('data', data);
       res.status(201).send(data);
     }).catch((err) => {
       console.log('PostError', err);
@@ -65,13 +65,30 @@ Cards.post('/', (req, res) => {
 
 
 ////Update the card with the id
-Cards.put('/:id', (req, res) => {
-
+Cards.put('/deck/:id', (req, res) => {
+  console.log(req.params);
+  const id = req.params.id;
+  const data = {
+    meaning: req.body.meaning
+  };
+  Card.findByIdAndUpdate(id, data, (err, data) => {
+    if (err) {
+      res.send(err);
+    }
+    res.send('Successfully! Employee updated ');
+  });
 });
 
 ///delete the card using card id in the request
-Cards.delete('/:id', (req, res) => {
-
+Cards.delete('/deck/:id', (req, res) => {
+  const id = req.params.id;
+  Card.deleteOne({_id: id}, (err) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send('Successfully! Employee has been Deleted.');
+    }
+  });
 });
 
 
