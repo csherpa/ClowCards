@@ -75,9 +75,11 @@ class App extends React.Component {
     const newText = prompt('Update the meaning!!');
     const { deckCards } = this.state;
     const updateResult = deckCards.find((elem) => {
+      // console.log(elem.meaning, text);
       return elem.meaning === text;
     });
-    axios.put(`/api/card/deck/${updateResult._id}`)
+    // console.log('stirigfy', updateResult, text, newText);
+    axios.put(`/api/card/deck/${updateResult._id}`, {meaning: newText})
       .then((res) => {
         console.log('update', res);
       }).catch((err) => {

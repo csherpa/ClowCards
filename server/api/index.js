@@ -40,13 +40,15 @@ Cards.post('/', (req, res) => {
 
 ////Update the card with the id
 Cards.put('/deck/:id', (req, res) => {
+  console.log('updateText:', req.body);
   const id = req.params.id;
   const data = {
     meaning: req.body.meaning
   };
 
   Card.updateOne({_id: id}, data)
-    .then(() => {
+    .then((data) => {
+      console.log('bodydata', data);
       res.send('success');
     });
 });
