@@ -43,9 +43,8 @@ class App extends React.Component {
     });
   }
 
-  addCard(e) {
+  addCard() {
     console.log('click,click');
-    e.preventDefault();
     axios({
       method: 'POST',
       url: '/api/card',
@@ -71,20 +70,26 @@ class App extends React.Component {
       });
   }
 
-  updateCard() {
-    console.log('updatebutton clicked');
-    axios.put('/api/card/deck')
+  updateCard(id) {
+    const { deckCards } = this.state;
+    const change = deckCards.find((elem) => {
+      return elem.meaning === id;
+    });
+    axios.put(`/api/card/deck/${change._id}`)
       .then((res) => {
         console.log('update', res);
+      }).catch((err) => {
+        console.log('update error');
       });
   }
 
   deleteCard(cardNumber) {
     const { deckCards } = this.state;
-    const cardObj = deckCards.find((elem) => {
+    const deleteResult = deckCards.find((elem) => {
+      console.log('elm', elem);
       return elem.cardNumber === cardNumber;
     });
-    axios.delete(`/api/card/deck/${cardObj._id}`)
+    axios.delete(`/api/card/deck/${deleteResult._id}`)
       .then((res) => {
         console.log(res, 'delete');
       }).catch((err) => {
@@ -97,7 +102,7 @@ class App extends React.Component {
     // console.log('current', deckCards);
     return (
       <div>
-        <h1>MyCards</h1>
+        <h1>Clow Collection</h1>
         <button onClick={this.addCard} >Add to my list</button>
         <SearchCard handleSearch={this.handleSearch} />
         <div>

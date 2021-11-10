@@ -4,10 +4,11 @@ const CardListEntry = ({ card, deleteCard, updateCard }) => {
   // console.log(props);
   return (
     <div>
-      <span>{card.englishName}</span>
-      <span>: </span>
-      <span>{card.cardNumber}</span>
-      <button onClick={updateCard}>Update</button>
+      <img src={card.clowCard}/>
+      <p>{card.englishName}</p>
+      <p>{card.cardNumber}</p>
+      <p>{card.meaning}</p>
+      <button onClick={ () => updateCard(card.meaning)}>Update</button>
       <button onClick={ () => deleteCard(card.cardNumber)} >Delete</button>
     </div>
   );
