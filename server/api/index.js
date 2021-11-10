@@ -28,31 +28,13 @@ Cards.get('/', (req, res) => {
       // console.log(result.length);
       res.send(result);
     });
-  // .then((data) => {
-  //   getAllCard()
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // });
 });
 
 
 
 
 Cards.post('/', (req, res) => {
-
-  // getCardData()
-  //   .then(({ data }) => {
-  //     const result = data['data'];
-  //     console.log(result.length, 'data');
-  //     addCard(result)
-  //       .then((data) => {
-  //         res.setStatus(201).send(data);
-  //       }).catch((err) => {
-  //         res.sendStatus(500).end();
-  //       });
-  //   });
-  console.log('addbuttonClicked', req);
+  // console.log('addbuttonClicked', req);
   addCard(req.body)
     .then((data) => {
       // console.log('data', data);
@@ -66,17 +48,15 @@ Cards.post('/', (req, res) => {
 
 ////Update the card with the id
 Cards.put('/deck/:id', (req, res) => {
-  console.log(req.params);
   const id = req.params.id;
   const data = {
     meaning: req.body.meaning
   };
-  Card.findByIdAndUpdate(id, data, (err, data) => {
-    if (err) {
-      res.send(err);
-    }
-    res.send('Successfully! Employee updated ');
-  });
+  const option = { useFindAndModify: false };
+  Card.updateOne({_id: id}, data)
+    .then(() => {
+      res.send('success');
+    });
 });
 
 ///delete the card using card id in the request
@@ -86,7 +66,7 @@ Cards.delete('/deck/:id', (req, res) => {
     if (err) {
       res.send(err);
     } else {
-      res.send('Successfully! Employee has been Deleted.');
+      res.send('Successfully! Deleted.');
     }
   });
 });

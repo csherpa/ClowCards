@@ -8,7 +8,7 @@ const CardListEntry = ({ card, deleteCard, updateCard }) => {
       <span>: </span>
       <span>{card.cardNumber}</span>
       <button onClick={updateCard}>Update</button>
-      <button onClick={deleteCard} >Delete</button>
+      <button onClick={ () => deleteCard(card.cardNumber)} >Delete</button>
     </div>
   );
 };

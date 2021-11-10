@@ -43,8 +43,9 @@ class App extends React.Component {
     });
   }
 
-  addCard() {
+  addCard(e) {
     console.log('click,click');
+    e.preventDefault();
     axios({
       method: 'POST',
       url: '/api/card',
@@ -72,10 +73,23 @@ class App extends React.Component {
 
   updateCard() {
     console.log('updatebutton clicked');
+    axios.put('/api/card/deck')
+      .then((res) => {
+        console.log('update', res);
+      });
   }
 
-  deleteCard() {
-    console.log('deletebutton clicked');
+  deleteCard(cardNumber) {
+    const { deckCards } = this.state;
+    const cardObj = deckCards.find((elem) => {
+      return elem.cardNumber === cardNumber;
+    });
+    axios.delete(`/api/card/deck/${cardObj._id}`)
+      .then((res) => {
+        console.log(res, 'delete');
+      }).catch((err) => {
+        console.log('deletion error');
+      });
   }
 
   render() {
@@ -90,7 +104,7 @@ class App extends React.Component {
           <Card currentCard={ currentCard }/>
         </div>
         <div>
-          <CardList 
+          <CardList
             deckCards={deckCards}
             deleteCard={this.deleteCard.bind(this)}
             updateCard={this.updateCard.bind(this)}
