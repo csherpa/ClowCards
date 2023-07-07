@@ -1,7 +1,5 @@
 # MVP (Solo) Project
 
-Welcome
-
 ### Overview:
 
 You have roughly 24 hours to produce something compelling using the skills you've honed over the past five weeks.
